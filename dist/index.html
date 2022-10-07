@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+          sans-serif;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      #myInput {
+        width: 100%; /* Full-width */
+        max-width: 100%;
+        font-size: 16px; /* Increase font-size */
+        padding: 12px 20px 12px 20px; /* Add some padding */
+        border: 1px solid #ddd; /* Add a grey border */
+        margin-bottom: 12px; /* Add some space below the input */
+      }
+
+      #myTable {
+        border-collapse: collapse; /* Collapse borders */
+        width: 100%; /* Full-width */
+        border: 1px solid #ddd; /* Add a grey border */
+        font-size: 18px; /* Increase font-size */
+      }
+
+      #myTable th,
+      #myTable td {
+        text-align: left; /* Left-align text */
+        padding: 12px; /* Add padding */
+      }
+
+      #myTable tr {
+        /* Add a bottom border to all table rows */
+        border-bottom: 1px solid #ddd;
+      }
+
+      #myTable tr.header,
+      #myTable tr:hover {
+        /* Add a grey background color to the table header and on hover */
+        background-color: #f1f1f1;
+      }
+    </style>
+  </head>
+  <body>
+    <input type="text" id="myInput" placeholder="Buscar por nombre..." />
+
+    <table id="myTable">
+      <tr class="header">
+        <th style="width: 40%">Nombre</th>
+        <th style="width: 30%">V Efectivo</th>
+        <th style="width: 30%">V Tarjeta</th>
+      </tr>
+      <tbody id="tbody"></tbody>
+    </table>
+    <script>
+      var products = [
+        {
+          codigo: "TTI21DP700D4021",
+          nombre: "PAN KATY FL XHW TRUE BLUE",
+          precio: "11,200.00",
+          cantidad: "1.00",
+          total: "11,200.00",
+        },
+        {
+          codigo: "TTI21DP700D4022",
+          nombre: "PAN KATY FL XHW TRUE BLUE",
+          precio: "11,200.00",
+          cantidad: "1.00",
+          total: "11,200.00",
+        },
+        {
+          codigo: "TTI21DP700D4023",
+          nombre: "PAN KATY FL XHW TRUE BLUE",
+          precio: "11,200.00",
+          cantidad: "1.00",
+          total: "11,200.00",
+        },
+        {
+          codigo: "TTI21DP700D4024",
+          nombre: "PAN KATY FL XHW TRUE BLUE",
+          precio: "11,200.00",
+          cantidad: "1.00",
+          total: "11,200.00",
+        },
+        {
+          codigo: "TTI21DP700D4025",
+          nombre: "PAN KATY FL XHW TRUE BLUE",
+          precio: "11,200.00",
+          cantidad: "1.00",
+          total: "11,200.00",
+        },
+        {
+          codigo: "TTI22DP604D2022",
+          nombre: "PAN MIA SK BLUE ROCKER",
+          precio: "9,700.00",
+          cantidad: "1.00",
+          total: "9,700.00",
+        },
+        {
+          codigo: "TTI22DP604D2023",
+          nombre: "PAN MIA SK BLUE ROCKER",
+          precio: "9,700.00",
+          cantidad: "1.00",
+          total: "9,700.00",
+        },
+        {
+          codigo: "TTI22DP604D2024",
+          nombre: "PAN MIA SK BLUE ROCKER",
+          precio: "9,700.00",
+          cantidad: "1.00",
+          total: "9,700.00",
+        },
+        {
+          codigo: "TTI22DP604D2025",
+          nombre: "PAN MIA SK BLUE ROCKER",
+          precio: "9,700.00",
+          cantidad: "1.00",
+          total: "9,700.00",
+        },
+        {
+          codigo: "TTI22DP604D2026",
+          nombre: "PAN MIA SK BLUE ROCKER",
+          precio: "9,700.00",
+          cantidad: "1.00",
+          total: "9,700.00",
+        },
+        {
+          codigo: "TTI22DP604D2027",
+          nombre: "PAN MIA SK BLUE ROCKER",
+          precio: "9,700.00",
+          cantidad: "1.00",
+          total: "9,700.00",
+        },
+        {
+          codigo: "TTI22DP604D2028",
+          nombre: "PAN MIA SK BLUE ROCKER",
+          precio: "9,700.00",
+          cantidad: "1.00",
+          total: "9,700.00",
+        },
+        {
+          codigo: "TTI22DP604D2030",
+          nombre: "PAN MIA SK BLUE ROCKER",
+          precio: "9,700.00",
+          cantidad: "1.00",
+          total: "9,700.00",
+        },
+        {
+          codigo: "TTI22DP604D2032",
+          nombre: "PAN MIA SK BLUE ROCKER",
+          precio: "9,700.00",
+          cantidad: "1.00",
+          total: "9,700.00",
+        },
+        {
+          codigo: "TTI22DS381D400M",
+          nombre: "CMP COMFY BLUE",
+          precio: "8,100.00",
+          cantidad: "1.00",
+          total: "8,100.00",
+        },
+        {
+          codigo: "TTI21DP700D4028",
+          nombre: "PAN KATY FL XHW TRUE BLUE",
+          precio: "11,200.00",
+          cantidad: "1.00",
+          total: "11,200.00",
+        },
+        {
+          codigo: "TTV23DP600D2020",
+          nombre: "PAN MIA SK TOP BLUE D-MID BLUE 020",
+          precio: "9,400.00",
+          cantidad: "1.00",
+          total: "9,400.00",
+        },
+        {
+          codigo: "TTV23DP600D2021",
+          nombre: "PAN MIA SK TOP BLUE D-MID BLUE 021",
+          precio: "9,400.00",
+          cantidad: "1.00",
+          total: "9,400.00",
+        },
+        {
+          codigo: "TTV23DP600D2023",
+          nombre: "PAN MIA SK TOP BLUE D-MID BLUE 023",
+          precio: "9,400.00",
+          cantidad: "1.00",
+          total: "9,400.00",
+        },
+        {
+          codigo: "TTV23DP600D2024",
+          nombre: "PAN MIA SK TOP BLUE D-MID BLUE 024",
+          precio: "9,400.00",
+          cantidad: "2.00",
+          total: "18,800.00",
+        },
+        {
+          codigo: "TTV23DP600D2025",
+          nombre: "PAN MIA SK TOP BLUE D-MID BLUE 025",
+          precio: "9,400.00",
+          cantidad: "1.00",
+          total: "9,400.00",
+        },
+        {
+          codigo: "TTV23DP600D2026",
+          nombre: "PAN MIA SK TOP BLUE D-MID BLUE 026",
+          precio: "9,400.00",
+          cantidad: "1.00",
+          total: "9,400.00",
+        },
+        {
+          codigo: "TTV23DP600D2027",
+          nombre: "PAN MIA SK TOP BLUE D-MID BLUE 027",
+          precio: "9,400.00",
+          cantidad: "1.00",
+          total: "9,400.00",
+        },
+        {
+          codigo: "TTV23DP600D2028",
+          nombre: "PAN MIA SK TOP BLUE D-MID BLUE 028",
+          precio: "9,400.00",
+          cantidad: "1.00",
+          total: "9,400.00",
+        },
+        {
+          codigo: "TTV23DP600D2030",
+          nombre: "PAN MIA SK TOP BLUE D-MID BLUE 030",
+          precio: "9,400.00",
+          cantidad: "1.00",
+          total: "9,400.00",
+        },
+        {
+          codigo: "TTV23DP600D2032",
+          nombre: "PAN MIA SK TOP BLUE D-MID BLUE 032",
+          precio: "9,400.00",
+          cantidad: "1.00",
+          total: "9,400.00",
+        },
+        {
+          codigo: "TTV23DP300D3021",
+          nombre: "PAN ANN SL SOFT BLUE HEAVEN D-SOFT DARK BLUE 021",
+          precio: "11,000.00",
+          cantidad: "1.00",
+          total: "11,000.00",
+        },
+        {
+          codigo: "TTV23DP300D3022",
+          nombre: "PAN ANN SL SOFT BLUE HEAVEN D-SOFT DARK BLUE 022",
+          precio: "11,000.00",
+          cantidad: "1.00",
+          total: "11,000.00",
+        },
+        {
+          codigo: "TTV23DP300D3023",
+          nombre: "PAN ANN SL SOFT BLUE HEAVEN D-SOFT DARK BLUE 023",
+          precio: "11,000.00",
+          cantidad: "1.00",
+          total: "11,000.00",
+        },
+        {
+          codigo: "TTV23DP300D3024",
+          nombre: "PAN ANN SL SOFT BLUE HEAVEN D-SOFT DARK BLUE 024",
+          precio: "11,000.00",
+          cantidad: "1.00",
+          total: "11,000.00",
+        },
+        {
+          codigo: "TTV23DP300D3025",
+          nombre: "PAN ANN SL SOFT BLUE HEAVEN D-SOFT DARK BLUE 025",
+          precio: "11,000.00",
+          cantidad: "1.00",
+          total: "11,000.00",
+        },
+        {
+          codigo: "TTV23DP300D3027",
+          nombre: "PAN ANN SL SOFT BLUE HEAVEN D-SOFT DARK BLUE 027",
+          precio: "11,000.00",
+          cantidad: "1.00",
+          total: "11,000.00",
+        },
+        {
+          codigo: "TTV23DP300D3028",
+          nombre: "PAN ANN SL SOFT BLUE HEAVEN D-SOFT DARK BLUE 028",
+          precio: "11,000.00",
+          cantidad: "1.00",
+          total: "11,000.00",
+        },
+        {
+          codigo: "TTV23DP50014022",
+          nombre: "PAN ALEX ECRU SAND CRUDO 022",
+          precio: "9,400.00",
+          cantidad: "1.00",
+          total: "9,400.00",
+        },
+        {
+          codigo: "TTV23DP50014024",
+          nombre: "PAN ALEX ECRU SAND CRUDO 024",
+          precio: "9,400.00",
+          cantidad: "1.00",
+          total: "9,400.00",
+        },
+        {
+          codigo: "TTV23DP50014026",
+          nombre: "PAN ALEX ECRU SAND CRUDO 026",
+          precio: "9,400.00",
+          cantidad: "1.00",
+          total: "9,400.00",
+        },
+        {
+          codigo: "TTV23DP50014028",
+          nombre: "PAN ALEX ECRU SAND CRUDO 028",
+          precio: "9,400.00",
+          cantidad: "1.00",
+          total: "9,400.00",
+        },
+        {
+          codigo: "TTV23MM3016000U",
+          nombre: "PLO FLORAL DISTORT AZUL 00U",
+          precio: "2,150.00",
+          cantidad: "1.00",
+          total: "2,150.00",
+        },
+        {
+          codigo: "TTV23MM3017000U",
+          nombre: "PLO FLORAL DISTORT VERDE 00U",
+          precio: "2,150.00",
+          cantidad: "1.00",
+          total: "2,150.00",
+        },
+        {
+          codigo: "TTV23MM3059900U",
+          nombre: "PLO GALAXY NEGRO 00U",
+          precio: "2,650.00",
+          cantidad: "1.00",
+          total: "2,650.00",
+        },
+        {
+          codigo: "TTV23DT0000P0XS",
+          nombre: "TOP SEA OFF WHITE OFF WHITE 0XS",
+          precio: "6,400.00",
+          cantidad: "1.00",
+          total: "6,400.00",
+        },
+        {
+          codigo: "TTV23DT0000P00S",
+          nombre: "TOP SEA OFF WHITE OFF WHITE 00S",
+          precio: "6,400.00",
+          cantidad: "1.00",
+          total: "6,400.00",
+        },
+        {
+          codigo: "TTV23DT0000P00M",
+          nombre: "TOP SEA OFF WHITE OFF WHITE 00M",
+          precio: "6,400.00",
+          cantidad: "1.00",
+          total: "6,400.00",
+        },
+        {
+          codigo: "TTV23MV002990XS",
+          nombre: "VES COPA NEGRO 0XS",
+          precio: "12,000.00",
+          cantidad: "1.00",
+          total: "12,000.00",
+        },
+        {
+          codigo: "TTV23MV0029900S",
+          nombre: "VES COPA NEGRO 00S",
+          precio: "12,000.00",
+          cantidad: "1.00",
+          total: "12,000.00",
+        },
+        {
+          codigo: "TTV23MV0029900M",
+          nombre: "VES COPA NEGRO 00M",
+          precio: "12,000.00",
+          cantidad: "1.00",
+          total: "12,000.00",
+        },
+        {
+          codigo: "TTV23MV002830XS",
+          nombre: "VES COPA TOSTADO 0XS",
+          precio: "12,000.00",
+          cantidad: "1.00",
+          total: "12,000.00",
+        },
+        {
+          codigo: "TTV23MV0028300S",
+          nombre: "VES COPA TOSTADO 00S",
+          precio: "12,000.00",
+          cantidad: "1.00",
+          total: "12,000.00",
+        },
+        {
+          codigo: "TTV23MV0028300M",
+          nombre: "VES COPA TOSTADO 00M",
+          precio: "12,000.00",
+          cantidad: "1.00",
+          total: "12,000.00",
+        },
+        {
+          codigo: "TTV23MZ20199038",
+          nombre: "SAN AMBER NEGRO 038",
+          precio: "16,800.00",
+          cantidad: "1.00",
+          total: "16,800.00",
+        },
+        {
+          codigo: "TTI22DP5046G021",
+          nombre: "PAN DIANDRA ACTIVE B SKY BLUE 021",
+          precio: "9,850.00",
+          cantidad: "1.00",
+          total: "9,850.00",
+        },
+        {
+          codigo: "TTI22DP5046G022",
+          nombre: "PAN DIANDRA ACTIVE B SKY BLUE 022",
+          precio: "9,850.00",
+          cantidad: "1.00",
+          total: "9,850.00",
+        },
+        {
+          codigo: "TTI22DP5046G024",
+          nombre: "PAN DIANDRA ACTIVE B SKY BLUE 024",
+          precio: "9,850.00",
+          cantidad: "1.00",
+          total: "9,850.00",
+        },
+        {
+          codigo: "TTI22DP5046G026",
+          nombre: "PAN DIANDRA ACTIVE B SKY BLUE 026",
+          precio: "9,850.00",
+          cantidad: "1.00",
+          total: "9,850.00",
+        },
+        {
+          codigo: "TTI22DP5046G028",
+          nombre: "PAN DIANDRA ACTIVE B SKY BLUE 028",
+          precio: "9,850.00",
+          cantidad: "1.00",
+          total: "9,850.00",
+        },
+        {
+          codigo: "TTI22DP5046G030",
+          nombre: "PAN DIANDRA ACTIVE B SKY BLUE 030",
+          precio: "9,850.00",
+          cantidad: "1.00",
+          total: "9,850.00",
+        },
+        {
+          codigo: "TTV23MZ10201038",
+          nombre: "ZAP JUNGLE BLANCO 038",
+          precio: "14,400.00",
+          cantidad: "1.00",
+          total: "14,400.00",
+        },
+        {
+          codigo: "TTV23MZ30043038",
+          nombre: "BOT MALAGA ROSA 038",
+          precio: "22,600.00",
+          cantidad: "1.00",
+          total: "22,600.00",
+        },
+        {
+          codigo: "TTV23MZ30043039",
+          nombre: "BOT MALAGA ROSA 039",
+          precio: "22,600.00",
+          cantidad: "1.00",
+          total: "22,600.00",
+        },
+        {
+          codigo: "TTV23DP50014020",
+          nombre: "PAN ALEX ECRU SAND CRUDO 020",
+          precio: "9,400.00",
+          cantidad: "1.00",
+          total: "9,400.00",
+        },
+        {
+          codigo: "TTV23MP602450XS",
+          nombre: "PAN SK BARI TOMATE 0XS",
+          precio: "7,950.00",
+          cantidad: "1.00",
+          total: "7,950.00",
+        },
+        {
+          codigo: "TTV23MP6024500S",
+          nombre: "PAN SK BARI TOMATE 00S",
+          precio: "7,950.00",
+          cantidad: "1.00",
+          total: "7,950.00",
+        },
+        {
+          codigo: "TTV23MP6024500M",
+          nombre: "PAN SK BARI TOMATE 00M",
+          precio: "7,950.00",
+          cantidad: "1.00",
+          total: "7,950.00",
+        },
+        {
+          codigo: "TTV23MP6024500L",
+          nombre: "PAN SK BARI TOMATE 00L",
+          precio: "7,950.00",
+          cantidad: "1.00",
+          total: "7,950.00",
+        },
+        {
+          codigo: "TTV23MP602990XS",
+          nombre: "PAN SK BARI NEGRO 0XS",
+          precio: "7,950.00",
+          cantidad: "2.00",
+          total: "15,900.00",
+        },
+        {
+          codigo: "TTV23MP6029900S",
+          nombre: "PAN SK BARI NEGRO 00S",
+          precio: "7,950.00",
+          cantidad: "2.00",
+          total: "15,900.00",
+        },
+        {
+          codigo: "TTV23MP6029900M",
+          nombre: "PAN SK BARI NEGRO 00M",
+          precio: "7,950.00",
+          cantidad: "2.00",
+          total: "15,900.00",
+        },
+        {
+          codigo: "TTV23MP6029900L",
+          nombre: "PAN SK BARI NEGRO 00L",
+          precio: "7,950.00",
+          cantidad: "1.00",
+          total: "7,950.00",
+        },
+        {
+          codigo: "TTV23MV024300XS",
+          nombre: "VES WANG NARANJA 0XS",
+          precio: "11,250.00",
+          cantidad: "1.00",
+          total: "11,250.00",
+        },
+        {
+          codigo: "TTV23MV0243000S",
+          nombre: "VES WANG NARANJA 00S",
+          precio: "11,250.00",
+          cantidad: "1.00",
+          total: "11,250.00",
+        },
+        {
+          codigo: "TTV23MV0243000M",
+          nombre: "VES WANG NARANJA 00M",
+          precio: "11,250.00",
+          cantidad: "1.00",
+          total: "11,250.00",
+        },
+        {
+          codigo: "TTV23MT1061900S",
+          nombre: "TOP CM D MALIBU ARENA 00S",
+          precio: "6,400.00",
+          cantidad: "1.00",
+          total: "6,400.00",
+        },
+        {
+          codigo: "TTV23MT1061900M",
+          nombre: "TOP CM D MALIBU ARENA 00M",
+          precio: "6,400.00",
+          cantidad: "1.00",
+          total: "6,400.00",
+        },
+        {
+          codigo: "TTV23MT1069900S",
+          nombre: "TOP CM D MALIBU NEGRO 00S",
+          precio: "6,400.00",
+          cantidad: "1.00",
+          total: "6,400.00",
+        },
+        {
+          codigo: "TTV23MT1069900M",
+          nombre: "TOP CM D MALIBU NEGRO 00M",
+          precio: "6,400.00",
+          cantidad: "1.00",
+          total: "6,400.00",
+        },
+        {
+          codigo: "TTV23MR106990XS",
+          nombre: "REM MC JOSE NEGRO 0XS",
+          precio: "4,600.00",
+          cantidad: "1.00",
+          total: "4,600.00",
+        },
+        {
+          codigo: "TTV23MR1069900S",
+          nombre: "REM MC JOSE NEGRO 00S",
+          precio: "4,600.00",
+          cantidad: "1.00",
+          total: "4,600.00",
+        },
+        {
+          codigo: "TTV23MR1069900M",
+          nombre: "REM MC JOSE NEGRO 00M",
+          precio: "4,600.00",
+          cantidad: "1.00",
+          total: "4,600.00",
+        },
+        {
+          codigo: "TTV23MR1069900L",
+          nombre: "REM MC JOSE NEGRO 00L",
+          precio: "4,600.00",
+          cantidad: "1.00",
+          total: "4,600.00",
+        },
+        {
+          codigo: "TTV23MR106190XS",
+          nombre: "REM MC JOSE ARENA 0XS",
+          precio: "4,600.00",
+          cantidad: "1.00",
+          total: "4,600.00",
+        },
+        {
+          codigo: "TTV23MR1061900S",
+          nombre: "REM MC JOSE ARENA 00S",
+          precio: "4,600.00",
+          cantidad: "1.00",
+          total: "4,600.00",
+        },
+        {
+          codigo: "TTV23MR1061900M",
+          nombre: "REM MC JOSE ARENA 00M",
+          precio: "4,600.00",
+          cantidad: "1.00",
+          total: "4,600.00",
+        },
+        {
+          codigo: "TTV23MR1061900L",
+          nombre: "REM MC JOSE ARENA 00L",
+          precio: "4,600.00",
+          cantidad: "1.00",
+          total: "4,600.00",
+        },
+        {
+          codigo: "TTV23MK3009C00M",
+          nombre: "CIN GIA NEGRO C/PLATA 00M",
+          precio: "2,650.00",
+          cantidad: "1.00",
+          total: "2,650.00",
+        },
+        {
+          codigo: "TTV23MK3073000S",
+          nombre: "CIN TOPAZ NARANJA 00S",
+          precio: "2,900.00",
+          cantidad: "1.00",
+          total: "2,900.00",
+        },
+        {
+          codigo: "TTV23MK3073000M",
+          nombre: "CIN TOPAZ NARANJA 00M",
+          precio: "2,900.00",
+          cantidad: "1.00",
+          total: "2,900.00",
+        },
+        {
+          codigo: "TTV23MK3074300S",
+          nombre: "CIN TOPAZ ROSA 00S",
+          precio: "2,900.00",
+          cantidad: "1.00",
+          total: "2,900.00",
+        },
+        {
+          codigo: "TTV23MK3074300M",
+          nombre: "CIN TOPAZ ROSA 00M",
+          precio: "2,900.00",
+          cantidad: "1.00",
+          total: "2,900.00",
+        },
+        {
+          codigo: "TTV23MK3076000S",
+          nombre: "CIN TOPAZ AZUL 00S",
+          precio: "2,900.00",
+          cantidad: "1.00",
+          total: "2,900.00",
+        },
+        {
+          codigo: "TTV23MK3076000M",
+          nombre: "CIN TOPAZ AZUL 00M",
+          precio: "2,900.00",
+          cantidad: "1.00",
+          total: "2,900.00",
+        },
+        {
+          codigo: "TTV23DP50301022",
+          nombre: "PAN WANG WIDE LEG WHITE BLANCO 022",
+          precio: "11,400.00",
+          cantidad: "1.00",
+          total: "11,400.00",
+        },
+        {
+          codigo: "TTV23DP50301024",
+          nombre: "PAN WANG WIDE LEG WHITE BLANCO 024",
+          precio: "11,400.00",
+          cantidad: "1.00",
+          total: "11,400.00",
+        },
+        {
+          codigo: "TTV23DP50301026",
+          nombre: "PAN WANG WIDE LEG WHITE BLANCO 026",
+          precio: "11,400.00",
+          cantidad: "1.00",
+          total: "11,400.00",
+        },
+        {
+          codigo: "TTV23DP50301028",
+          nombre: "PAN WANG WIDE LEG WHITE BLANCO 028",
+          precio: "11,400.00",
+          cantidad: "1.00",
+          total: "11,400.00",
+        },
+        {
+          codigo: "TTV23DP50301030",
+          nombre: "PAN WANG WIDE LEG WHITE BLANCO 030",
+          precio: "11,400.00",
+          cantidad: "1.00",
+          total: "11,400.00",
+        },
+        {
+          codigo: "TTV23DV000D20XS",
+          nombre: "VES CAMISERO LOLA BLUE D-MID BLUE 0XS",
+          precio: "7,800.00",
+          cantidad: "1.00",
+          total: "7,800.00",
+        },
+        {
+          codigo: "TTV23DV000D200S",
+          nombre: "VES CAMISERO LOLA BLUE D-MID BLUE 00S",
+          precio: "7,800.00",
+          cantidad: "1.00",
+          total: "7,800.00",
+        },
+        {
+          codigo: "TTV23DV000D200M",
+          nombre: "VES CAMISERO LOLA BLUE D-MID BLUE 00M",
+          precio: "7,800.00",
+          cantidad: "1.00",
+          total: "7,800.00",
+        },
+        {
+          codigo: "TTV23DV000D200L",
+          nombre: "VES CAMISERO LOLA BLUE D-MID BLUE 00L",
+          precio: "7,800.00",
+          cantidad: "1.00",
+          total: "7,800.00",
+        },
+        {
+          codigo: "TTV23DV0026G0XS",
+          nombre: "VES CAMISERO GABY NEW LIGHT SKY BLUE 0XS",
+          precio: "9,500.00",
+          cantidad: "1.00",
+          total: "9,500.00",
+        },
+        {
+          codigo: "TTV23DV0026G00S",
+          nombre: "VES CAMISERO GABY NEW LIGHT SKY BLUE 00S",
+          precio: "9,500.00",
+          cantidad: "1.00",
+          total: "9,500.00",
+        },
+        {
+          codigo: "TTV23DV0026G00M",
+          nombre: "VES CAMISERO GABY NEW LIGHT SKY BLUE 00M",
+          precio: "9,500.00",
+          cantidad: "1.00",
+          total: "9,500.00",
+        },
+        {
+          codigo: "TTV23DV0026G00L",
+          nombre: "VES CAMISERO GABY NEW LIGHT SKY BLUE 00L",
+          precio: "9,500.00",
+          cantidad: "1.00",
+          total: "9,500.00",
+        },
+        {
+          codigo: "TTV23DV0026G0XL",
+          nombre: "VES CAMISERO GABY NEW LIGHT SKY BLUE 0XL",
+          precio: "9,500.00",
+          cantidad: "1.00",
+          total: "9,500.00",
+        },
+        {
+          codigo: "TTV23MR1067M0XS",
+          nombre: "REM MC JOSE MINT 0XS",
+          precio: "4,600.00",
+          cantidad: "1.00",
+          total: "4,600.00",
+        },
+        {
+          codigo: "TTV23MR1067M00S",
+          nombre: "REM MC JOSE MINT 00S",
+          precio: "4,600.00",
+          cantidad: "1.00",
+          total: "4,600.00",
+        },
+        {
+          codigo: "TTV23MR1067M00M",
+          nombre: "REM MC JOSE MINT 00M",
+          precio: "4,600.00",
+          cantidad: "1.00",
+          total: "4,600.00",
+        },
+        {
+          codigo: "TTV23MR1067M00L",
+          nombre: "REM MC JOSE MINT 00L",
+          precio: "4,600.00",
+          cantidad: "1.00",
+          total: "4,600.00",
+        },
+        {
+          codigo: "TTV23MR1060P0XS",
+          nombre: "REM MC JOSE OFF WHITE 0XS",
+          precio: "4,600.00",
+          cantidad: "1.00",
+          total: "4,600.00",
+        },
+        {
+          codigo: "TTV23MR1060P00S",
+          nombre: "REM MC JOSE OFF WHITE 00S",
+          precio: "4,600.00",
+          cantidad: "1.00",
+          total: "4,600.00",
+        },
+        {
+          codigo: "TTV23MR1060P00M",
+          nombre: "REM MC JOSE OFF WHITE 00M",
+          precio: "4,600.00",
+          cantidad: "1.00",
+          total: "4,600.00",
+        },
+        {
+          codigo: "TTV23MR1060P00L",
+          nombre: "REM MC JOSE OFF WHITE 00L",
+          precio: "4,600.00",
+          cantidad: "1.00",
+          total: "4,600.00",
+        },
+      ];
+    </script>
+    <script src="./index.js"></script>
+  </body>
+</html>
